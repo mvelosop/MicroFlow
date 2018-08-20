@@ -3,9 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4EE4315B-FBEB-454B-B74C-2CA19300ADE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow", "src\MicroFlow\MicroFlow.csproj", "{1BD11E20-423A-4815-91E9-0574DE46639F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{4943DAFA-A8A1-43D7-9A04-A18E2EAF7429}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{21F82EEB-2E11-4EA5-8D87-32B57CF78726}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\add-migration.cmd = scripts\add-migration.cmd
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow.Specs", "specs\MicroFlow.Specs\MicroFlow.Specs.csproj", "{96774188-7276-4643-9D46-B842842551C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts.App", "scripts\Scripts.App\Scripts.App.csproj", "{0CE8177F-C3B8-4533-A87A-DD993930EC97}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BD11E20-423A-4815-91E9-0574DE46639F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD11E20-423A-4815-91E9-0574DE46639F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD11E20-423A-4815-91E9-0574DE46639F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD11E20-423A-4815-91E9-0574DE46639F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96774188-7276-4643-9D46-B842842551C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96774188-7276-4643-9D46-B842842551C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96774188-7276-4643-9D46-B842842551C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96774188-7276-4643-9D46-B842842551C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1BD11E20-423A-4815-91E9-0574DE46639F} = {4EE4315B-FBEB-454B-B74C-2CA19300ADE1}
+		{96774188-7276-4643-9D46-B842842551C1} = {4943DAFA-A8A1-43D7-9A04-A18E2EAF7429}
+		{0CE8177F-C3B8-4533-A87A-DD993930EC97} = {21F82EEB-2E11-4EA5-8D87-32B57CF78726}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61A05679-8D06-4F89-A1A3-E8C2126EC16B}
