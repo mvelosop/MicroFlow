@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4EE4315B-FBEB-454B-B74C-2CA19300ADE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow", "src\MicroFlow\MicroFlow.csproj", "{1BD11E20-423A-4815-91E9-0574DE46639F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFlow", "src\MicroFlow\MicroFlow.csproj", "{1BD11E20-423A-4815-91E9-0574DE46639F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "specs", "specs", "{4943DAFA-A8A1-43D7-9A04-A18E2EAF7429}"
 EndProject
@@ -16,7 +16,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{21F8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow.Specs", "specs\MicroFlow.Specs\MicroFlow.Specs.csproj", "{96774188-7276-4643-9D46-B842842551C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts.App", "scripts\Scripts.App\Scripts.App.csproj", "{0CE8177F-C3B8-4533-A87A-DD993930EC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scripts.App", "scripts\Scripts.App\Scripts.App.csproj", "{0CE8177F-C3B8-4533-A87A-DD993930EC97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{A6028CBD-3A42-4BEA-A0D5-3921EB834839}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5F02EFBE-C65A-4D66-9618-B07932D73866}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroFlow.UnitTests", "test\MicroFlow.UnitTests\MicroFlow.UnitTests.csproj", "{366D2960-3EB0-40B3-8CB5-C2E5CABEC756}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0EA7F4F4-CF5F-4F13-A771-B12F4911A8FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +44,10 @@ Global
 		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE8177F-C3B8-4533-A87A-DD993930EC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +56,7 @@ Global
 		{1BD11E20-423A-4815-91E9-0574DE46639F} = {4EE4315B-FBEB-454B-B74C-2CA19300ADE1}
 		{96774188-7276-4643-9D46-B842842551C1} = {4943DAFA-A8A1-43D7-9A04-A18E2EAF7429}
 		{0CE8177F-C3B8-4533-A87A-DD993930EC97} = {21F82EEB-2E11-4EA5-8D87-32B57CF78726}
+		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756} = {5F02EFBE-C65A-4D66-9618-B07932D73866}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61A05679-8D06-4F89-A1A3-E8C2126EC16B}
