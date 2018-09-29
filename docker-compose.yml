@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  microflow.api:
+    image: ${DOCKER_REGISTRY}microflowapi
+    build:
+      context: .
+      dockerfile: src/MicroFlow.Api/Dockerfile

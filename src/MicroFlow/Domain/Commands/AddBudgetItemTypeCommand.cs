@@ -1,17 +1,25 @@
-﻿using MicroFlow.Data.Commands;
-using MicroFlow.Domain.Model;
+﻿using MicroFlow.Domain.Model;
+using System;
 
 namespace MicroFlow.Domain.Commands
 {
-	public class AddBudgetItemTypeCommand : BudgetItemTypeData
+	public class AddBudgetItemTypeCommand
 	{
 		public AddBudgetItemTypeCommand(
 			BudgetClass budgetClass,
 			string name,
 			string notes)
-			: base (budgetClass, name, notes)
 
 		{
+			BudgetClass = budgetClass;
+			Name = name ?? throw new ArgumentNullException(nameof(name));
+			Notes = notes;
 		}
+
+		public BudgetClass BudgetClass { get; }
+
+		public string Name { get; }
+
+		public string Notes { get; }
 	}
 }

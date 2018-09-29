@@ -16,4 +16,8 @@
     <Folder Include="Infrastructure\Data\Migrations\Budget\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\Domion\Domion.csproj" />
+  </ItemGroup>
+
 </Project>
