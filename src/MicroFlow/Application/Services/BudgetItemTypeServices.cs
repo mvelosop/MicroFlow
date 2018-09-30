@@ -70,9 +70,13 @@ namespace MicroFlow.Application.Services
 			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
 		}
 
-		public Task<OperationResult> RemoveAsync(BudgetItemType entity)
+		public async Task<OperationResult> RemoveAsync(BudgetItemType entity)
 		{
-			throw new NotImplementedException();
+			_dbContext.Remove(entity);
+
+			await _dbContext.SaveChangesAsync();
+
+			return new OperationResult(new ValidationResult());
 		}
 	}
 }

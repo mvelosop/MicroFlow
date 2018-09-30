@@ -208,6 +208,60 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="[1.3] - Remove budget item types")]
+        [Xunit.TraitAttribute("FeatureTitle", "[1] - Manage BudgetItemTypes")]
+        [Xunit.TraitAttribute("Description", "[1.3] - Remove budget item types")]
+        public virtual void _1_3_RemoveBudgetItemTypes()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.3] - Remove budget item types", null, ((string[])(null)));
+#line 43
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table6.AddRow(new string[] {
+                        "1",
+                        "Income type",
+                        "Income"});
+            table6.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+            table6.AddRow(new string[] {
+                        "3",
+                        "Debt type",
+                        "Debt"});
+#line 44
+ testRunner.Given("I have the following budget item types:", ((string)(null)), table6, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FindByName"});
+            table7.AddRow(new string[] {
+                        "Income type"});
+#line 50
+ testRunner.When("I remove the following budget item types:", ((string)(null)), table7, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table8.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+            table8.AddRow(new string[] {
+                        "3",
+                        "Debt type",
+                        "Debt"});
+#line 54
+ testRunner.Then("I should get these budget item types when I query:", ((string)(null)), table8, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.4.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

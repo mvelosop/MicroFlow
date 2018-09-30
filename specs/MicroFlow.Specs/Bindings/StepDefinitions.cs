@@ -3,7 +3,6 @@ using MicroFlow.Domain.Model;
 using MicroFlow.Domain.Services;
 using MicroFlow.Specs.TestHelpers;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -23,7 +22,7 @@ namespace MicroFlow.Specs.Bindings
 		}
 
 		[Then(@"I should get these budget item types when I query:")]
-		public async Task ThenIGetTheseBudgetItemTypesWhenIQuery(Table table)
+		public async Task ThenIShouldGetTheseBudgetItemTypesWhenIQuery(Table table)
 		{
 			var services = GetService<IBudgetItemTypeServices>();
 
@@ -48,7 +47,6 @@ namespace MicroFlow.Specs.Bindings
 			}
 		}
 
-
 		[When(@"I modify the following budget item types:")]
 		public async Task WhenIModifyTheFollowingBudgetItemTypes(Table table)
 		{
@@ -72,11 +70,28 @@ namespace MicroFlow.Specs.Bindings
 			}
 		}
 
+		[When(@"I remove the following budget item types:")]
+		public async Task WhenIRemoveTheFollowingBudgetItemTypes(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var entity = await services.FindByNameAsync(item.FindByName);
+
+				entity.Should().NotBeNull();
+
+				var result = await services.RemoveAsync(entity);
+
+				result.Succeeded.Should().BeTrue();
+			}
+		}
 
 		private T GetService<T>() where T : class
 		{
 			return _scenarioContext.Get<IServiceScope>(Hooks.ScopeKey)?.ServiceProvider.GetService<T>();
 		}
-
 	}
 }
