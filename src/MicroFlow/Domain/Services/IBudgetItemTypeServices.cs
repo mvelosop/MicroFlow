@@ -9,7 +9,7 @@ namespace MicroFlow.Domain.Services
 {
 	public interface IBudgetItemTypeServices
 	{
-		Task<OperationResult<BudgetItemType>> AddAsync(BudgetItemType model);
+		Task<OperationResult<BudgetItemType>> AddAsync(BudgetItemType entity);
 
 		Task<BudgetItemType> FindByIdAsync(int id);
 
@@ -23,8 +23,8 @@ namespace MicroFlow.Domain.Services
 
 		Task<List<BudgetItemType>> GetListAsync(IQuerySpec<BudgetItemType> querySpec, CancellationToken cancellationToken);
 
-		Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType model);
+		Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType entity);
 
-		Task<OperationResult> RemoveAsync(BudgetItemType model);
+		Task<OperationResult> RemoveAsync(BudgetItemType entity);
 	}
 }

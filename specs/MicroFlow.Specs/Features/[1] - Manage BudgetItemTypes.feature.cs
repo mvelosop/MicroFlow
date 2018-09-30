@@ -147,7 +147,63 @@ this.ScenarioInitialize(scenarioInfo);
                         "Tax type",
                         "Tax"});
 #line 17
- testRunner.Then("I get these budget item types when I query:", ((string)(null)), table2, "Then ");
+ testRunner.Then("I should get these budget item types when I query:", ((string)(null)), table2, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="[1.2] - Modify budget item types")]
+        [Xunit.TraitAttribute("FeatureTitle", "[1] - Manage BudgetItemTypes")]
+        [Xunit.TraitAttribute("Description", "[1.2] - Modify budget item types")]
+        public virtual void _1_2_ModifyBudgetItemTypes()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.2] - Modify budget item types", null, ((string[])(null)));
+#line 27
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "Income type",
+                        "Income"});
+            table3.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+#line 28
+ testRunner.Given("I have the following budget item types:", ((string)(null)), table3, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FindByName",
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table4.AddRow(new string[] {
+                        "Income type",
+                        "3",
+                        "Income type (updated)",
+                        "Investment"});
+#line 33
+ testRunner.When("I modify the following budget item types:", ((string)(null)), table4, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table5.AddRow(new string[] {
+                        "3",
+                        "Income type (updated)",
+                        "Investment"});
+            table5.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+#line 37
+ testRunner.Then("I should get these budget item types when I query:", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

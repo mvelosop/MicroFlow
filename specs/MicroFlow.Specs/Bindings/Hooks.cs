@@ -1,5 +1,8 @@
-﻿using MicroFlow.Setup;
+﻿using MicroFlow.Infrastructure.Data.Configuration;
+using MicroFlow.Setup;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace MicroFlow.Specs.Bindings
@@ -39,12 +42,32 @@ namespace MicroFlow.Specs.Bindings
 			}
 		}
 
+		[BeforeScenario]
+		public async Task BeforeScenario()
+		{
+			await ClearData();
+		}
+
 		[BeforeStep]
 		public void BeforeStep()
 		{
 			var scope = testHost.CreateScope();
 
 			_scenarioContext.Set(scope, ScopeKey);
+		}
+
+		private async Task ClearData()
+		{
+			using (var scope = testHost.CreateScope())
+			{
+				var sp = scope.ServiceProvider;
+
+				var dbContext = sp.GetService<BudgetDbContext>();
+
+				dbContext.RemoveRange(await dbContext.BudgetItemTypes.ToListAsync());
+
+				await dbContext.SaveChangesAsync();
+			}
 		}
 	}
 }

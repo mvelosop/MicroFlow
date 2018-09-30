@@ -22,13 +22,13 @@ namespace MicroFlow.Application.Services
 			_dbContext = dbContext;
 		}
 
-		public async Task<OperationResult<BudgetItemType>> AddAsync(BudgetItemType model)
+		public async Task<OperationResult<BudgetItemType>> AddAsync(BudgetItemType entity)
 		{
-			_dbContext.Add(model);
+			_dbContext.Add(entity);
 
 			await _dbContext.SaveChangesAsync();
 
-			return new OperationResult<BudgetItemType>(new ValidationResult(), model);
+			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
 		}
 
 		public Task<BudgetItemType> FindByIdAsync(int id)
@@ -36,9 +36,9 @@ namespace MicroFlow.Application.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<BudgetItemType> FindByNameAsync(string name)
+		public async Task<BudgetItemType> FindByNameAsync(string name)
 		{
-			throw new NotImplementedException();
+			return await _dbContext.BudgetItemTypes.SingleOrDefaultAsync(bi => bi.Name == name);
 		}
 
 		public Task<BudgetItemType> FindByNameAsync(string name, int excludingId)
@@ -61,12 +61,16 @@ namespace MicroFlow.Application.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType model)
+		public async Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType entity)
 		{
-			throw new NotImplementedException();
+			_dbContext.Update(entity);
+
+			await _dbContext.SaveChangesAsync();
+
+			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
 		}
 
-		public Task<OperationResult> RemoveAsync(BudgetItemType model)
+		public Task<OperationResult> RemoveAsync(BudgetItemType entity)
 		{
 			throw new NotImplementedException();
 		}

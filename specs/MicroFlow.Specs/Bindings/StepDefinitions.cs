@@ -1,7 +1,9 @@
 ﻿using FluentAssertions;
 using MicroFlow.Domain.Model;
 using MicroFlow.Domain.Services;
+using MicroFlow.Specs.TestHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -20,7 +22,7 @@ namespace MicroFlow.Specs.Bindings
 			_scenarioContext = scenarioContext;
 		}
 
-		[Then(@"I get these budget item types when I query:")]
+		[Then(@"I should get these budget item types when I query:")]
 		public async Task ThenIGetTheseBudgetItemTypesWhenIQuery(Table table)
 		{
 			var services = GetService<IBudgetItemTypeServices>();
@@ -31,6 +33,7 @@ namespace MicroFlow.Specs.Bindings
 		}
 
 		[When(@"I add the following budget item types:")]
+		[Given(@"I have the following budget item types:")]
 		public async Task WhenIAddTheFollowingBudgetItemTypes(Table table)
 		{
 			var items = table.CreateSet<BudgetItemType>();
@@ -44,6 +47,31 @@ namespace MicroFlow.Specs.Bindings
 				result.Succeeded.Should().BeTrue();
 			}
 		}
+
+
+		[When(@"I modify the following budget item types:")]
+		public async Task WhenIModifyTheFollowingBudgetItemTypes(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var entity = await services.FindByNameAsync(item.FindByName);
+
+				entity.Should().NotBeNull();
+
+				entity.Name = item.Name;
+				entity.Order = item.Order;
+				entity.BudgetClass = item.BudgetClass;
+
+				var result = await services.ModifyAsync(entity);
+
+				result.Succeeded.Should().BeTrue();
+			}
+		}
+
 
 		private T GetService<T>() where T : class
 		{
