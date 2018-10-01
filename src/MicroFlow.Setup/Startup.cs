@@ -29,7 +29,10 @@ namespace MicroFlow.Setup
 
 			services.AddScoped<IBudgetItemTypeRepository, BudgetItemTypeRepository>();
 			services.AddScoped<IBudgetItemTypeServices, BudgetItemTypeServices>();
-			services.AddScoped<AddBudgetItemTypeValidator>();
+			services.AddScoped<SaveBudgetItemTypeValidator>();
+
+			services.AddScoped(sp => 
+				new Lazy<SaveBudgetItemTypeValidator>(() => sp.GetService<SaveBudgetItemTypeValidator>()));
 		}
 
 		public void SetupDatabase(IServiceProvider serviceProvider)

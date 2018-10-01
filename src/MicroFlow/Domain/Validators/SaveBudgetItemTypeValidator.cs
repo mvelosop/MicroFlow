@@ -10,24 +10,24 @@ using Errors = MicroFlow.Domain.Validators.BudgetItemTypeErrors;
 
 namespace MicroFlow.Domain.Validators
 {
-	public class AddBudgetItemTypeValidator : AbstractValidator<BudgetItemType>
+	public class SaveBudgetItemTypeValidator : AbstractValidator<BudgetItemType>
 	{
 		private readonly IBudgetItemTypeRepository _repository;
 
-		public AddBudgetItemTypeValidator(IBudgetItemTypeRepository repository)
+		public SaveBudgetItemTypeValidator(IBudgetItemTypeRepository repository)
 		{
 			RuleFor(e => e.Name).NotEmpty().WithErrorMessage(Errors.NameRequired());
-			RuleFor(e => e.Name).CustomAsync(BeUnique);
+			RuleFor(e => e.Name).CustomAsync(MustBeUniqueAsync);
 
 			_repository = repository;
 		}
 
-		protected async Task<bool> BeUnique(
+		protected async Task<bool> MustBeUniqueAsync(
 			string name,
 			CustomContext context,
 			CancellationToken cancellationToken)
 		{
-			var duplicateByName = await _repository.FindByNameAsync(name);
+			var duplicateByName = await _repository.FindDuplicateByNameAsync((BudgetItemType)context.InstanceToValidate);
 
 			if (duplicateByName is null) return true;
 

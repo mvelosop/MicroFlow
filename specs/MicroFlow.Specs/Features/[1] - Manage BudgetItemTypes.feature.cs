@@ -187,6 +187,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "3",
                         "Income type (updated)",
                         "Investment"});
+            table4.AddRow(new string[] {
+                        "Expense type",
+                        "4",
+                        "Expense type",
+                        "Expense"});
 #line 33
  testRunner.When("I update the following budget item types:", ((string)(null)), table4, "When ");
 #line hidden
@@ -195,14 +200,14 @@ this.ScenarioInitialize(scenarioInfo);
                         "Name",
                         "BudgetClass"});
             table5.AddRow(new string[] {
-                        "2",
+                        "4",
                         "Expense type",
                         "Expense"});
             table5.AddRow(new string[] {
                         "3",
                         "Income type (updated)",
                         "Investment"});
-#line 37
+#line 38
  testRunner.Then("I should get these budget item types when I query:", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -214,7 +219,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void _1_3_RemoveBudgetItemTypes()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.3] - Remove budget item types", null, ((string[])(null)));
-#line 43
+#line 44
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -234,14 +239,14 @@ this.ScenarioInitialize(scenarioInfo);
                         "3",
                         "Debt type",
                         "Debt"});
-#line 44
+#line 45
  testRunner.Given("I have the following budget item types:", ((string)(null)), table6, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "FindByName"});
             table7.AddRow(new string[] {
                         "Income type"});
-#line 50
+#line 51
  testRunner.When("I remove the following budget item types:", ((string)(null)), table7, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -256,7 +261,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "3",
                         "Debt type",
                         "Debt"});
-#line 54
+#line 55
  testRunner.Then("I should get these budget item types when I query:", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -268,7 +273,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void _1_4_ValidateBudgetItemTypesOnAdd()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.4] - Validate budget item types on add", null, ((string[])(null)));
-#line 59
+#line 61
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -288,7 +293,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "3",
                         "Debt type",
                         "Debt"});
-#line 60
+#line 62
  testRunner.Given("I have the following budget item types:", ((string)(null)), table9, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -306,7 +311,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "Expense type",
                         "Expense",
                         "BudgetItemTypeErrors-NameExists"});
-#line 66
+#line 68
  testRunner.When("I try to add these budget item types I should get validation errors:", ((string)(null)), table10, "When ");
 #line hidden
             this.ScenarioCleanup();
@@ -318,7 +323,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void _1_5_ValidateBudgetItemTypesOnUpdate()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.5] - Validate budget item types on update", null, ((string[])(null)));
-#line 71
+#line 74
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -338,7 +343,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "3",
                         "Debt type",
                         "Debt"});
-#line 72
+#line 75
  testRunner.Given("I have the following budget item types:", ((string)(null)), table11, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -359,7 +364,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "Expense type",
                         "Income",
                         "BudgetItemTypeErrors-NameExists"});
-#line 78
+#line 81
  testRunner.When("I try to update these budget item types I should get validation errors:", ((string)(null)), table12, "When ");
 #line hidden
             this.ScenarioCleanup();

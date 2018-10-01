@@ -19,5 +19,15 @@ namespace MicroFlow.Infrastructure.Data.Repositories
 		{
 			return await DbSet.SingleOrDefaultAsync(e => e.Name == name);
 		}
+
+		public async Task<BudgetItemType> FindDuplicateByNameAsync(BudgetItemType entity)
+		{
+			if (entity.Id == 0)
+			{
+				return await FindByNameAsync(entity.Name);
+			}
+
+			return await DbSet.SingleOrDefaultAsync(e => e.Name == entity.Name && e.Id != entity.Id);
+		}
 	}
 }

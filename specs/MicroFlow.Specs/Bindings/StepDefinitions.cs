@@ -131,7 +131,7 @@ namespace MicroFlow.Specs.Bindings
 
 				var result = await services.UpdateAsync(entity);
 
-				result.IsValid.Should().BeTrue();
+				result.ValidationResult.Errors.Select(e => e.ErrorMessage).Should().BeEmpty();
 			}
 		}
 

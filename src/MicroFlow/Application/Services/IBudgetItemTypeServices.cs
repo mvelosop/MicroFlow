@@ -15,8 +15,6 @@ namespace MicroFlow.Application.Services
 
 		Task<BudgetItemType> FindByNameAsync(string name);
 
-		Task<BudgetItemType> FindByNameAsync(string name, int excludingId);
-
 		Task<List<BudgetItemType>> GetListAsync();
 
 		Task<List<BudgetItemType>> GetListAsync(IQuerySpec<BudgetItemType> querySpec);
