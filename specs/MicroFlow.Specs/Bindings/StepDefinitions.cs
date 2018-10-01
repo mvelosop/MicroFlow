@@ -33,24 +33,6 @@ namespace MicroFlow.Specs.Bindings
 			table.CompareToSet(items);
 		}
 
-		[Then(@"I should get validation errors when I try to add these budget item types:")]
-		public async Task ThenIShouldGetValidationErrorsWhenITryToAddTheseBudgetItemTypes(Table table)
-		{
-			var items = table.CreateSet<BudgetItemTypeTestData>();
-
-			var services = GetService<IBudgetItemTypeServices>();
-
-			foreach (var item in items)
-			{
-				var result = await services.AddAsync(item);
-
-				var errors = item.ValidationErrors.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-				result.IsValid.Should().BeFalse();
-				result.ValidationResult.Errors.Select(e => e.ErrorCode).Should().BeEquivalentTo(errors);
-			}
-		}
-
 		[When(@"I add the following budget item types:")]
 		[Given(@"I have the following budget item types:")]
 		public async Task WhenIAddTheFollowingBudgetItemTypes(Table table)
@@ -64,6 +46,69 @@ namespace MicroFlow.Specs.Bindings
 				var result = await services.AddAsync(item);
 
 				result.IsValid.Should().BeTrue();
+			}
+		}
+
+		[When(@"I remove the following budget item types:")]
+		public async Task WhenIRemoveTheFollowingBudgetItemTypes(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var entity = await services.FindByNameAsync(item.FindByName);
+
+				entity.Should().NotBeNull();
+
+				var result = await services.RemoveAsync(entity);
+
+				result.IsValid.Should().BeTrue();
+			}
+		}
+
+		[When(@"I try to add these budget item types I should get validation errors:")]
+		public async Task WhenITryToAddTheseBudgetItemTypesIShouldGetValidationErrors(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var result = await services.AddAsync(item);
+
+				var expectedErrors = item.ValidationErrors.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+				result.IsValid.Should().BeFalse();
+				result.ValidationResult.Errors.Select(e => e.ErrorCode).Should().BeEquivalentTo(expectedErrors);
+			}
+		}
+
+		[When(@"I try to update these budget item types I should get validation errors:")]
+		public async Task WhenITryToUpdateTheseBudgetItemTypesIShouldGetValidationErrors(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var entity = await services.FindByNameAsync(item.FindByName);
+
+				entity.Should().NotBeNull();
+
+				entity.Name = item.Name;
+				entity.Order = item.Order;
+				entity.BudgetClass = item.BudgetClass;
+
+				var result = await services.UpdateAsync(entity);
+
+				var expectedErrors = item.ValidationErrors.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+				result.IsValid.Should().BeFalse();
+				result.ValidationResult.Errors.Select(e => e.ErrorCode).Should().BeEquivalentTo(expectedErrors);
 			}
 		}
 
@@ -85,25 +130,6 @@ namespace MicroFlow.Specs.Bindings
 				entity.BudgetClass = item.BudgetClass;
 
 				var result = await services.UpdateAsync(entity);
-
-				result.IsValid.Should().BeTrue();
-			}
-		}
-
-		[When(@"I remove the following budget item types:")]
-		public async Task WhenIRemoveTheFollowingBudgetItemTypes(Table table)
-		{
-			var items = table.CreateSet<BudgetItemTypeTestData>();
-
-			var services = GetService<IBudgetItemTypeServices>();
-
-			foreach (var item in items)
-			{
-				var entity = await services.FindByNameAsync(item.FindByName);
-
-				entity.Should().NotBeNull();
-
-				var result = await services.RemoveAsync(entity);
 
 				result.IsValid.Should().BeTrue();
 			}

@@ -63,7 +63,19 @@ Scenario: [1.4] - Validate budget item types on add
 		| 2     | Expense type    | Expense     |
 		| 3     | Debt type       | Debt        |
 
-	Then I should get validation errors when I try to add these budget item types:
+	When I try to add these budget item types I should get validation errors:
 		| Order | Name         | BudgetClass | ValidationErrors                  |
 		| 3     |              | Debt        | BudgetItemTypeErrors-NameRequired |
 		| 2     | Expense type | Expense     | BudgetItemTypeErrors-NameExists   |
+
+Scenario: [1.5] - Validate budget item types on update
+	Given I have the following budget item types:
+		| Order | Name            | BudgetClass |
+		| 1     | Income type     | Income      |
+		| 2     | Expense type    | Expense     |
+		| 3     | Debt type       | Debt        |
+
+	When I try to update these budget item types I should get validation errors:
+		| FindByName  | Order | Name         | BudgetClass | ValidationErrors                  |
+		| Debt type   | 3     |              | Debt        | BudgetItemTypeErrors-NameRequired |
+		| Income type | 1     | Expense type | Income      | BudgetItemTypeErrors-NameExists   |

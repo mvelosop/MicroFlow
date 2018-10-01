@@ -307,7 +307,60 @@ this.ScenarioInitialize(scenarioInfo);
                         "Expense",
                         "BudgetItemTypeErrors-NameExists"});
 #line 66
- testRunner.Then("I should get validation errors when I try to add these budget item types:", ((string)(null)), table10, "Then ");
+ testRunner.When("I try to add these budget item types I should get validation errors:", ((string)(null)), table10, "When ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="[1.5] - Validate budget item types on update")]
+        [Xunit.TraitAttribute("FeatureTitle", "[1] - Manage BudgetItemTypes")]
+        [Xunit.TraitAttribute("Description", "[1.5] - Validate budget item types on update")]
+        public virtual void _1_5_ValidateBudgetItemTypesOnUpdate()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.5] - Validate budget item types on update", null, ((string[])(null)));
+#line 71
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table11.AddRow(new string[] {
+                        "1",
+                        "Income type",
+                        "Income"});
+            table11.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+            table11.AddRow(new string[] {
+                        "3",
+                        "Debt type",
+                        "Debt"});
+#line 72
+ testRunner.Given("I have the following budget item types:", ((string)(null)), table11, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FindByName",
+                        "Order",
+                        "Name",
+                        "BudgetClass",
+                        "ValidationErrors"});
+            table12.AddRow(new string[] {
+                        "Debt type",
+                        "3",
+                        "",
+                        "Debt",
+                        "BudgetItemTypeErrors-NameRequired"});
+            table12.AddRow(new string[] {
+                        "Income type",
+                        "1",
+                        "Expense type",
+                        "Income",
+                        "BudgetItemTypeErrors-NameExists"});
+#line 78
+ testRunner.When("I try to update these budget item types I should get validation errors:", ((string)(null)), table12, "When ");
 #line hidden
             this.ScenarioCleanup();
         }
