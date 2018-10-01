@@ -5,7 +5,7 @@ using MicroFlow.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace MicroFlow.Infrastructure.Data.Repositories
+namespace MicroFlow.Infrastructure.Repositories
 {
 	public class BudgetItemTypeRepository : BaseRepository<BudgetItemType, int>, IBudgetItemTypeRepository
 	{
