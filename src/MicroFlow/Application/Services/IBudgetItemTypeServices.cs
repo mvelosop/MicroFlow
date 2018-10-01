@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MicroFlow.Domain.Services
+namespace MicroFlow.Application.Services
 {
 	public interface IBudgetItemTypeServices
 	{
@@ -23,7 +23,7 @@ namespace MicroFlow.Domain.Services
 
 		Task<List<BudgetItemType>> GetListAsync(IQuerySpec<BudgetItemType> querySpec, CancellationToken cancellationToken);
 
-		Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType entity);
+		Task<OperationResult<BudgetItemType>> UpdateAsync(BudgetItemType entity);
 
 		Task<OperationResult> RemoveAsync(BudgetItemType entity);
 	}

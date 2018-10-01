@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domion.Abstractions
 {
@@ -6,12 +7,20 @@ namespace Domion.Abstractions
 	{
 		void Delete(TEntity entity);
 
+		void DeleteRange(params TEntity[] entities);
+
 		Task<TEntity> FindByIdAsync(TKey id);
 
 		void Insert(TEntity entity);
 
+		Task InsertAsync(TEntity entity);
+
+		void InsertRange(params TEntity[] entities);
+
 		Task<int> SaveChangesAsync();
 
 		void Update(TEntity entity);
+
+		void UpdateRange(params TEntity[] entities);
 	}
 }

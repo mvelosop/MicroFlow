@@ -2,7 +2,9 @@
 using Domion.Base;
 using FluentValidation.Results;
 using MicroFlow.Domain.Model;
+using MicroFlow.Domain.Repositories;
 using MicroFlow.Domain.Services;
+using MicroFlow.Domain.Validators;
 using MicroFlow.Infrastructure.Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,21 +16,28 @@ namespace MicroFlow.Application.Services
 {
 	public class BudgetItemTypeServices : IBudgetItemTypeServices
 	{
-		private readonly BudgetDbContext _dbContext;
+		private readonly IBudgetItemTypeRepository _repository;
+		private readonly AddBudgetItemTypeValidator _validator;
 
 		public BudgetItemTypeServices(
-			BudgetDbContext dbContext)
+			IBudgetItemTypeRepository dbContext,
+			AddBudgetItemTypeValidator validator)
 		{
-			_dbContext = dbContext;
+			_repository = dbContext;
+			_validator = validator;
 		}
 
 		public async Task<OperationResult<BudgetItemType>> AddAsync(BudgetItemType entity)
 		{
-			_dbContext.Add(entity);
+			var result = await _validator.ValidateAsync(entity);
 
-			await _dbContext.SaveChangesAsync();
+			if (!result.IsValid) return FailedOperation(result);
 
-			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
+			_repository.Insert(entity);
+
+			await _repository.SaveChangesAsync();
+
+			return SuccessfulOperation(entity);
 		}
 
 		public Task<BudgetItemType> FindByIdAsync(int id)
@@ -38,7 +47,7 @@ namespace MicroFlow.Application.Services
 
 		public async Task<BudgetItemType> FindByNameAsync(string name)
 		{
-			return await _dbContext.BudgetItemTypes.SingleOrDefaultAsync(bi => bi.Name == name);
+			return await _repository.FindByNameAsync(name);
 		}
 
 		public Task<BudgetItemType> FindByNameAsync(string name, int excludingId)
@@ -48,7 +57,7 @@ namespace MicroFlow.Application.Services
 
 		public async Task<List<BudgetItemType>> GetListAsync()
 		{
-			return await _dbContext.BudgetItemTypes.ToListAsync();
+			return await _repository.GetListAsync();
 		}
 
 		public Task<List<BudgetItemType>> GetListAsync(IQuerySpec<BudgetItemType> querySpec)
@@ -61,22 +70,37 @@ namespace MicroFlow.Application.Services
 			throw new NotImplementedException();
 		}
 
-		public async Task<OperationResult<BudgetItemType>> ModifyAsync(BudgetItemType entity)
+		public async Task<OperationResult<BudgetItemType>> UpdateAsync(BudgetItemType entity)
 		{
-			_dbContext.Update(entity);
+			_repository.Update(entity);
 
-			await _dbContext.SaveChangesAsync();
+			await _repository.SaveChangesAsync();
 
-			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
+			return SuccessfulOperation(entity);
 		}
 
 		public async Task<OperationResult> RemoveAsync(BudgetItemType entity)
 		{
-			_dbContext.Remove(entity);
+			_repository.Delete(entity);
 
-			await _dbContext.SaveChangesAsync();
+			await _repository.SaveChangesAsync();
 
-			return new OperationResult(new ValidationResult());
+			return SuccessfulOperation();
+		}
+
+		private OperationResult SuccessfulOperation()
+		{
+			return new OperationResult();
+		}
+
+		private OperationResult<BudgetItemType> FailedOperation(ValidationResult result)
+		{
+			return new OperationResult<BudgetItemType>(result);
+		}
+
+		private OperationResult<BudgetItemType> SuccessfulOperation(BudgetItemType entity)
+		{
+			return new OperationResult<BudgetItemType>(new ValidationResult(), entity);
 		}
 	}
 }

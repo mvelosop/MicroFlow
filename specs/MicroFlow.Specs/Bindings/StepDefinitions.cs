@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
+using MicroFlow.Application.Services;
 using MicroFlow.Domain.Model;
-using MicroFlow.Domain.Services;
 using MicroFlow.Specs.TestHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -31,6 +33,24 @@ namespace MicroFlow.Specs.Bindings
 			table.CompareToSet(items);
 		}
 
+		[Then(@"I should get validation errors when I try to add these budget item types:")]
+		public async Task ThenIShouldGetValidationErrorsWhenITryToAddTheseBudgetItemTypes(Table table)
+		{
+			var items = table.CreateSet<BudgetItemTypeTestData>();
+
+			var services = GetService<IBudgetItemTypeServices>();
+
+			foreach (var item in items)
+			{
+				var result = await services.AddAsync(item);
+
+				var errors = item.ValidationErrors.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+				result.IsValid.Should().BeFalse();
+				result.ValidationResult.Errors.Select(e => e.ErrorCode).Should().BeEquivalentTo(errors);
+			}
+		}
+
 		[When(@"I add the following budget item types:")]
 		[Given(@"I have the following budget item types:")]
 		public async Task WhenIAddTheFollowingBudgetItemTypes(Table table)
@@ -43,12 +63,12 @@ namespace MicroFlow.Specs.Bindings
 			{
 				var result = await services.AddAsync(item);
 
-				result.Succeeded.Should().BeTrue();
+				result.IsValid.Should().BeTrue();
 			}
 		}
 
-		[When(@"I modify the following budget item types:")]
-		public async Task WhenIModifyTheFollowingBudgetItemTypes(Table table)
+		[When(@"I update the following budget item types:")]
+		public async Task WhenIUpdateTheFollowingBudgetItemTypes(Table table)
 		{
 			var items = table.CreateSet<BudgetItemTypeTestData>();
 
@@ -64,9 +84,9 @@ namespace MicroFlow.Specs.Bindings
 				entity.Order = item.Order;
 				entity.BudgetClass = item.BudgetClass;
 
-				var result = await services.ModifyAsync(entity);
+				var result = await services.UpdateAsync(entity);
 
-				result.Succeeded.Should().BeTrue();
+				result.IsValid.Should().BeTrue();
 			}
 		}
 
@@ -85,7 +105,7 @@ namespace MicroFlow.Specs.Bindings
 
 				var result = await services.RemoveAsync(entity);
 
-				result.Succeeded.Should().BeTrue();
+				result.IsValid.Should().BeTrue();
 			}
 		}
 

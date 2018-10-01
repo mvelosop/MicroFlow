@@ -14,10 +14,10 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Data\Migrations\" />
     <Folder Include="Infrastructure\Data\Migrations\Budget\" />
-    <Folder Include="Infrastructure\Data\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\Domion.Infrastructure\Domion.Infrastructure.csproj" />
     <ProjectReference Include="..\..\lib\Domion\Domion.csproj" />
   </ItemGroup>
 

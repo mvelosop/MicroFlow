@@ -1,6 +1,9 @@
 ﻿using MicroFlow.Application.Services;
+using MicroFlow.Domain.Repositories;
 using MicroFlow.Domain.Services;
+using MicroFlow.Domain.Validators;
 using MicroFlow.Infrastructure.Data.Configuration;
+using MicroFlow.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +27,9 @@ namespace MicroFlow.Setup
 			services.AddDbContext<BudgetDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+			services.AddScoped<IBudgetItemTypeRepository, BudgetItemTypeRepository>();
 			services.AddScoped<IBudgetItemTypeServices, BudgetItemTypeServices>();
+			services.AddScoped<AddBudgetItemTypeValidator>();
 		}
 
 		public void SetupDatabase(IServiceProvider serviceProvider)
