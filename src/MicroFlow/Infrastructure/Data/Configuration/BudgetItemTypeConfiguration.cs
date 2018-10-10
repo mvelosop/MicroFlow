@@ -14,6 +14,13 @@ namespace MicroFlow.Infrastructure.Data.Configuration
 
 			builder.Property(t => t.ConcurrencyToken)
 				.IsRowVersion();
+
+			builder.Property(t => t.Name)
+				.HasMaxLength(250)
+				.IsRequired();
+
+			builder.Property(t => t.Notes)
+				.HasMaxLength(1000);
 		}
 	}
 }

@@ -14,10 +14,6 @@ namespace MicroFlow.Infrastructure.Data.Configuration
 
 		public DbSet<BudgetItemType> BudgetItemTypes { get; set; }
 
-		public DbSet<OneTimeBudgetItem> OneTimeBudgetItems { get; set; }
-
-		public DbSet<RecurringBudgetItem> RecurringBudgetItems { get; set; }
-
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfiguration(new BudgetItemTypeConfiguration());

@@ -17,6 +17,7 @@ namespace Scripts.App
 
 			optionsBuilder.UseSqlServer(connectionString);
 
+			Console.WriteLine($"Connection String: {connectionString}");
 			Console.WriteLine("Creating database / applying migrations...");
 
 			using (var dbContext = new BudgetDbContext(optionsBuilder.Options))

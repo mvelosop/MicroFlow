@@ -30,6 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domion", "lib\Domion\Domion
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domion.Infrastructure", "lib\Domion.Infrastructure\Domion.Infrastructure.csproj", "{CFE28A68-9B62-44C5-9374-F8BE6ED5D601}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow.Mvc", "src\MicroFlow.Mvc\MicroFlow.Mvc.csproj", "{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroFlow.Setup", "src\MicroFlow.Setup\MicroFlow.Setup.csproj", "{44CE2758-AC6F-4A06-8C22-6D14C693312C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +64,14 @@ Global
 		{CFE28A68-9B62-44C5-9374-F8BE6ED5D601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFE28A68-9B62-44C5-9374-F8BE6ED5D601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFE28A68-9B62-44C5-9374-F8BE6ED5D601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44CE2758-AC6F-4A06-8C22-6D14C693312C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44CE2758-AC6F-4A06-8C22-6D14C693312C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44CE2758-AC6F-4A06-8C22-6D14C693312C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44CE2758-AC6F-4A06-8C22-6D14C693312C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +83,8 @@ Global
 		{366D2960-3EB0-40B3-8CB5-C2E5CABEC756} = {5F02EFBE-C65A-4D66-9618-B07932D73866}
 		{9D11731D-92A3-431E-9C3C-9E991EF4B3BE} = {A6028CBD-3A42-4BEA-A0D5-3921EB834839}
 		{CFE28A68-9B62-44C5-9374-F8BE6ED5D601} = {A6028CBD-3A42-4BEA-A0D5-3921EB834839}
+		{E0DD8B7E-FCFD-4D45-8E2A-D3B312827CE4} = {4EE4315B-FBEB-454B-B74C-2CA19300ADE1}
+		{44CE2758-AC6F-4A06-8C22-6D14C693312C} = {4EE4315B-FBEB-454B-B74C-2CA19300ADE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61A05679-8D06-4F89-A1A3-E8C2126EC16B}

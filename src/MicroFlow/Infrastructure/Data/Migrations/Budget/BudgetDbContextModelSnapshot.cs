@@ -15,7 +15,7 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -52,7 +52,7 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
 
                     b.ToTable("BudgetItems","Budget");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BudgetItem");
+                    b.HasDiscriminator<string>("Discriminator");
                 });
 
             modelBuilder.Entity("MicroFlow.Domain.Model.BudgetItemType", b =>
@@ -79,42 +79,6 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                     b.HasKey("Id");
 
                     b.ToTable("BudgetItemTypes","Budget");
-                });
-
-            modelBuilder.Entity("MicroFlow.Domain.Model.OneTimeBudgetItem", b =>
-                {
-                    b.HasBaseType("MicroFlow.Domain.Model.BudgetItem");
-
-                    b.Property<DateTime>("Date");
-
-                    b.ToTable("OneTimeBudgetItem");
-
-                    b.HasDiscriminator().HasValue("OneTimeBudgetItem");
-                });
-
-            modelBuilder.Entity("MicroFlow.Domain.Model.RecurringBudgetItem", b =>
-                {
-                    b.HasBaseType("MicroFlow.Domain.Model.BudgetItem");
-
-                    b.Property<DateTime>("BeginDate");
-
-                    b.Property<DateTime?>("EndDate");
-
-                    b.Property<int>("LapseCount");
-
-                    b.Property<int>("LapseUnit");
-
-                    b.Property<int?>("OccurrenceCount");
-
-                    b.Property<int>("OnDay");
-
-                    b.Property<bool>("OnEndOfMonth");
-
-                    b.Property<int>("OnMonth");
-
-                    b.ToTable("RecurringBudgetItem");
-
-                    b.HasDiscriminator().HasValue("RecurringBudgetItem");
                 });
 
             modelBuilder.Entity("MicroFlow.Domain.Model.BudgetItem", b =>
