@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MicroFlow.Domain.Model
+﻿namespace MicroFlow.Domain.Model
 {
 	public class BudgetItemType
 	{
@@ -10,11 +8,8 @@ namespace MicroFlow.Domain.Model
 
 		public int Id { get; set; }
 
-		[MaxLength(250)]
-		[Required]
 		public string Name { get; set; }
 
-		[MaxLength(1000)]
 		public string Notes { get; set; }
 
 		public int Order { get; set; }
