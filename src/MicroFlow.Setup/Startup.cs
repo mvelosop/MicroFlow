@@ -2,6 +2,7 @@
 using MicroFlow.Domain.Repositories;
 using MicroFlow.Domain.Services;
 using MicroFlow.Domain.Validators;
+using MicroFlow.Infrastructure.Data;
 using MicroFlow.Infrastructure.Data.Configuration;
 using MicroFlow.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,7 @@
 ﻿using Domion.Infrastructure.Base;
 using MicroFlow.Domain.Model;
 using MicroFlow.Domain.Repositories;
-using MicroFlow.Infrastructure.Data.Configuration;
+using MicroFlow.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
