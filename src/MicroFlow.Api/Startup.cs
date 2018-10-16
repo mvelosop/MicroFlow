@@ -43,6 +43,18 @@ namespace MicroFlow.Api
 					PropertyNameHandling.CamelCase;
 
 				settings.GeneratorSettings.DefaultEnumHandling = EnumHandling.String;
+
+				settings.PostProcess = document =>
+				{
+					document.Info.Title = "MicroFlow";
+					document.Info.Version = "0.1.0";
+					document.Info.Description = "See the project's repo on GitHub. Click the link below.";
+					document.Info.Contact = new NSwag.SwaggerContact
+					{
+						Name = "Miguel Veloso",
+						Url = "https://github.com/mvelosop/MicroFlow"
+					};
+				};
 			});
 
 			app.UseMvc();

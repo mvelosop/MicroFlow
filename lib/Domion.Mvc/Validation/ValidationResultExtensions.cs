@@ -1,18 +1,20 @@
 ﻿using Domion.Base;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace Domion.Mvc.Validation
 {
-	public static class OperationResultsExtensions
+	public static class ValidationResultExtensions
 	{
 		public static ValidationProblemDetails AsValidationProblemDetails(
-			this OperationResult operationResult,
+			this ValidationResult validationResult,
 			int status,
 			string title,
 			string detail)
 		{
-			if (operationResult.IsValid) return default(ValidationProblemDetails);
+			if (validationResult.IsValid) throw new InvalidOperationException($"{nameof(validationResult)} must not be valid!");
 
 			var problemDetail = new ValidationProblemDetails
 			{
@@ -21,12 +23,13 @@ namespace Domion.Mvc.Validation
 				Detail = detail
 			};
 
-			foreach (var errorGroup in operationResult.ValidationResult.Errors.GroupBy(e => e.PropertyName))
+			foreach (var errorGroup in validationResult.Errors.GroupBy(e => e.PropertyName))
 			{
 				problemDetail.Errors.Add(errorGroup.Key, errorGroup.Select(g => g.ErrorMessage).ToArray());
 			}
 
 			return problemDetail;
 		}
+
 	}
 }

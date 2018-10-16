@@ -1,11 +1,13 @@
-﻿using FluentValidation.AspNetCore;
+﻿using Domion.Base;
+using Domion.Mvc.Validation;
 using MicroFlow.Application.Services;
 using MicroFlow.Domain.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domion.Mvc.Validation;
-using static System.Net.WebRequestMethods;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +16,15 @@ namespace MicroFlow.Api.Controllers
 	[Route("api/v1/[controller]")]
 	public class BudgetItemTypesController : Controller
 	{
+		private const string ConcurrencyTokenIsRequired = "The concurrencyToken is required!";
+		private const string InvalidRequestTitle = "Invalid Request!";
+		private const string ModelIdMustBeCeroMessage = "The model id must be cero!";
+		private const string ModelIsRequiredMessage = "The model is required!";
+		private const string RequestIdAndModelIdDontMatchMessage = "The request id and the model id don't match!";
+		private const string RequestIdMustNotBeCeroMessage = "The request id must not be cero!";
+		private const string ValidationErrorsDetailMessage = "The operation can't proceed because of one or more validation errors.";
+		private const string ValidationErrorsTitle = "Validation Errors Occurred!";
+
 		private readonly IBudgetItemTypeServices _services;
 
 		public BudgetItemTypesController(IBudgetItemTypeServices services)
@@ -23,25 +34,34 @@ namespace MicroFlow.Api.Controllers
 
 		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete(int id, [FromBody]byte[] concurrencyToken)
+		[SwaggerResponse(200, typeof(void))]
+		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
+		[SwaggerResponse(404, typeof(void), Description = "Not found")]
+		[SwaggerResponse(422, typeof(ValidationProblemDetails), Description = "Validation errors")]
+		public async Task<ActionResult> Delete(int id, [FromBody]byte[] concurrencyToken)
 		{
-			if (concurrencyToken is null) return BadRequest();
-			if (id == 0) return BadRequest();
+			if (id == 0) return BadRequestProblem(RequestIdMustNotBeCeroMessage);
+			if (concurrencyToken is null) return BadRequestProblem(ConcurrencyTokenIsRequired);
 
 			var entity = await _services.FindByIdAsync(id);
 
 			if (entity is null) return NotFound();
 
-			await _services.RemoveAsync(entity);
+			var result = await _services.RemoveAsync(entity);
+
+			if (!result.IsValid) return ValidationErrorsProblem(result);
 
 			return Ok();
 		}
 
 		// GET api/<controller>/5
 		[HttpGet("{id}")]
-		public async Task<IActionResult> Get(int id)
+		[SwaggerResponse(200, typeof(BudgetItemType))]
+		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
+		[SwaggerResponse(404, typeof(void), Description = "Not found")]
+		public async Task<ActionResult<BudgetItemType>> Get(int id)
 		{
-			if (id == 0) return BadRequest();
+			if (id == 0) return BadRequestProblem(RequestIdMustNotBeCeroMessage);
 
 			var entity = await _services.FindByIdAsync(id);
 
@@ -52,58 +72,41 @@ namespace MicroFlow.Api.Controllers
 
 		// GET: api/<controller>
 		[HttpGet]
-		public async Task<IActionResult> GetItems()
+		[SwaggerResponse(200, typeof(List<BudgetItemType>))]
+		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
+		public async Task<ActionResult<List<BudgetItemType>>> GetItems()
 		{
 			return Ok(await _services.GetListAsync());
 		}
 
 		// POST api/<controller>
 		[HttpPost]
+		[SwaggerResponse(200, typeof(BudgetItemType))]
+		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
+		[SwaggerResponse(422, typeof(ValidationProblemDetails), Description = "Validation errors")]
 		public async Task<ActionResult<BudgetItemType>> Post([FromBody]BudgetItemType model)
 		{
-			if (model is null)
-			{
-				var error = new ProblemDetails();
-
-				error.Detail = "BudgetItemType is required!";
-				error.Status = StatusCodes.Status400BadRequest;
-
-				return BadRequest(error);
-			}
-
-			if (model.Id != 0)
-			{
-				var error = new ProblemDetails();
-
-				error.Title = "Invalid request";
-				error.Detail = "id must be cero to POST!";
-				error.Status = StatusCodes.Status400BadRequest;
-
-				return BadRequest(error);
-			}
+			if (model is null) return BadRequestProblem(ModelIsRequiredMessage);
+			if (model.Id != 0) return BadRequestProblem(ModelIdMustBeCeroMessage);
 
 			var result = await _services.AddAsync(model);
 
-			if (!result.IsValid)
-			{
-				result.ValidationResult.AddToModelState(ModelState, null);
-
-				var problem = new ValidationProblemDetails(ModelState);
-
-				return UnprocessableEntity(result.AsValidationProblemDetails(422, "Validation Errors Occurred!",
-					"The operation can't proceed because of one or more validation errors."));
-			}
+			if (!result.IsValid) return ValidationErrorsProblem(result);
 
 			return Ok(model);
 		}
 
 		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public async Task<IActionResult> Put(int id, [FromBody]BudgetItemType model)
+		[SwaggerResponse(200, typeof(BudgetItemType))]
+		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
+		[SwaggerResponse(404, typeof(void), Description = "Not found")]
+		[SwaggerResponse(422, typeof(ValidationProblemDetails), Description = "Validation errors")]
+		public async Task<ActionResult<BudgetItemType>> Put(int id, [FromBody]BudgetItemType model)
 		{
-			if (model is null) return BadRequest();
-			if (id == 0) return BadRequest();
-			if (id != model.Id) return BadRequest();
+			if (model is null) return BadRequestProblem(ModelIsRequiredMessage);
+			if (id == 0) return BadRequestProblem(RequestIdMustNotBeCeroMessage);
+			if (id != model.Id) return BadRequestProblem(RequestIdAndModelIdDontMatchMessage);
 
 			var entity = await _services.FindByIdAsync(id);
 
@@ -113,9 +116,21 @@ namespace MicroFlow.Api.Controllers
 
 			var result = await _services.UpdateAsync(entity);
 
-			if (!result.IsValid) return UnprocessableEntity();
+			if (!result.IsValid) return ValidationErrorsProblem(result);
 
 			return Ok(entity);
+		}
+
+		private BadRequestObjectResult BadRequestProblem(string detail)
+		{
+			return BadRequest(
+				new ProblemDetails
+				{
+					Title = InvalidRequestTitle,
+					Detail = detail,
+					Status = StatusCodes.Status400BadRequest
+				}
+			);
 		}
 
 		private void UpdateEntity(BudgetItemType model, BudgetItemType entity)
@@ -125,6 +140,11 @@ namespace MicroFlow.Api.Controllers
 			entity.Name = model.Name;
 			entity.Notes = model.Notes;
 			entity.Order = model.Order;
+		}
+
+		private ActionResult ValidationErrorsProblem(OperationResult result)
+		{
+			return UnprocessableEntity(result.ValidationResult.AsValidationProblemDetails(422, ValidationErrorsTitle, ValidationErrorsDetailMessage));
 		}
 	}
 }
