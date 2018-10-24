@@ -7,7 +7,7 @@ namespace MicroFlow.Lib.Validators
 	{
 		public ChangeCommandValidator()
 		{
-			RuleFor(c => c.ConcurrencyToken).NotEmpty();
+			RuleFor(c => c.RowVersion).NotEmpty();
 			RuleFor(c => c.Id).NotEmpty();
 		}
 	}

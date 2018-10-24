@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MicroFlow.Infrastructure.Data.Migrations.Budget
 {
     [DbContext(typeof(BudgetDbContext))]
-    [Migration("20181013131821_InitialMigration_BudgetDbContext")]
+    [Migration("20181024093914_InitialMigration_BudgetDbContext")]
     partial class InitialMigration_BudgetDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,10 +28,6 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Amount");
-
-                    b.Property<byte[]>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -45,6 +41,10 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                         .HasMaxLength(1000);
 
                     b.Property<int>("Order");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<int>("Type_Id");
 
@@ -67,10 +67,6 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                         .IsRequired()
                         .HasMaxLength(10);
 
-                    b.Property<byte[]>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250);
@@ -79,6 +75,10 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                         .HasMaxLength(1000);
 
                     b.Property<int>("Order");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 

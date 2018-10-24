@@ -16,7 +16,7 @@ namespace MicroFlow.Api.Controllers
 	[Route("api/v1/[controller]")]
 	public class BudgetItemTypesController : Controller
 	{
-		private const string ConcurrencyTokenIsRequired = "The concurrencyToken is required!";
+		private const string RowVersionIsRequired = "The rowVersion is required!";
 		private const string InvalidRequestTitle = "Invalid Request!";
 		private const string ModelIdMustBeCeroMessage = "The model id must be cero!";
 		private const string ModelIsRequiredMessage = "The model is required!";
@@ -38,10 +38,10 @@ namespace MicroFlow.Api.Controllers
 		[SwaggerResponse(400, typeof(ProblemDetails), Description = "Bad request")]
 		[SwaggerResponse(404, typeof(void), Description = "Not found")]
 		[SwaggerResponse(422, typeof(ValidationProblemDetails), Description = "Validation errors")]
-		public async Task<ActionResult> Delete(int id, [FromBody]byte[] concurrencyToken)
+		public async Task<ActionResult> Delete(int id, [FromBody]byte[] rowVersion)
 		{
 			if (id == 0) return BadRequestProblem(RequestIdMustNotBeCeroMessage);
-			if (concurrencyToken is null) return BadRequestProblem(ConcurrencyTokenIsRequired);
+			if (rowVersion is null) return BadRequestProblem(RowVersionIsRequired);
 
 			var entity = await _services.FindByIdAsync(id);
 
@@ -136,7 +136,7 @@ namespace MicroFlow.Api.Controllers
 		private void UpdateEntity(BudgetItemType model, BudgetItemType entity)
 		{
 			entity.BudgetClass = model.BudgetClass;
-			entity.ConcurrencyToken = model.ConcurrencyToken;
+			entity.RowVersion = model.RowVersion;
 			entity.Name = model.Name;
 			entity.Notes = model.Notes;
 			entity.Order = model.Order;

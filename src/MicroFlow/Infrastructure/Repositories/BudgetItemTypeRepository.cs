@@ -17,7 +17,7 @@ namespace MicroFlow.Infrastructure.Repositories
 
 		public override void Delete(BudgetItemType entity)
 		{
-			SetOriginalConcurrencyToken(entity);
+			SetOriginalRowVersion(entity);
 
 			base.Delete(entity);
 		}
@@ -39,14 +39,14 @@ namespace MicroFlow.Infrastructure.Repositories
 
 		public override void Update(BudgetItemType entity)
 		{
-			SetOriginalConcurrencyToken(entity);
+			SetOriginalRowVersion(entity);
 
 			base.Update(entity);
 		}
 
-		private void SetOriginalConcurrencyToken(BudgetItemType entity)
+		private void SetOriginalRowVersion(BudgetItemType entity)
 		{
-			GetEntry(entity).OriginalValues[nameof(BudgetItemType.ConcurrencyToken)] = entity.ConcurrencyToken;
+			GetEntry(entity).OriginalValues[nameof(BudgetItemType.RowVersion)] = entity.RowVersion;
 		}
 	}
 }

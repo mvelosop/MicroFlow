@@ -17,7 +17,7 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                 columns: table => new
                 {
                     BudgetClass = table.Column<string>(maxLength: 10, nullable: false),
-                    ConcurrencyToken = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
@@ -35,7 +35,7 @@ namespace MicroFlow.Infrastructure.Data.Migrations.Budget
                 columns: table => new
                 {
                     Amount = table.Column<decimal>(nullable: false),
-                    ConcurrencyToken = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 250, nullable: false),
