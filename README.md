@@ -6,7 +6,7 @@ I intend to use this as a repo for whatever I discover somehow to be a "best pra
 
 ## Background
 
-I had the honor to produce the Spanish translation of the e-book [.NET Microservices: Architecture for containerized .NET applications](https://aka.ms/microservicesebook) from [Cesar De La Torre](https://social.msdn.microsoft.com/profile/Cesar+de+la+Torre+%5BMSFT%5D), so I had the chance to explore in great detail multiple facets of the microservices architecture.
+I had the honor to do the Spanish translation of the e-book [.NET Microservices: Architecture for containerized .NET applications](https://aka.ms/microservicesebook) from [Cesar De La Torre](https://social.msdn.microsoft.com/profile/Cesar+de+la+Torre+%5BMSFT%5D), so I had the chance to explore in great detail multiple facets of the microservices architecture.
 
 Having worked some significant time on the e-book's reference application: [eShopOnContainers on GitHub](https://github.com/dotnet-architecture/eShopOnContainers), continuing with the e-book's content revision and [some experience as the co-founder of a Venezuelan ISV](https://www.linkedin.com/in/miguelvelosop/?locale=en_US) (in my former life), I feel confident enough to say that microservices are not for everyone.
 
