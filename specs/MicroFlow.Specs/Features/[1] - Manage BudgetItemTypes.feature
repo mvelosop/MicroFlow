@@ -90,7 +90,7 @@ Scenario: [1.6] - Catch concurrency conflicts
 		| 1     | Income type     | Income      |
 		| 2     | Expense type    | Expense     |
 
-	When I try to simultaneously update these budget item types I should get a concurrency exception:
+	When I try to update these budget item types after they've been updated I should get a concurrency exception:
 		| FindByName  | Order | Name        | BudgetClass | Notes           |
 		| Income type | 1     | Income type | Income      | Failling update |
 

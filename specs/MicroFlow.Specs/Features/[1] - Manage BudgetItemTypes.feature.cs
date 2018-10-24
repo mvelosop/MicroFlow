@@ -408,8 +408,8 @@ this.ScenarioInitialize(scenarioInfo);
                         "Income",
                         "Failling update"});
 #line 93
- testRunner.When("I try to simultaneously update these budget item types I should get a concurrency" +
-                    " exception:", ((string)(null)), table14, "When ");
+ testRunner.When("I try to update these budget item types after they\'ve been updated I should get a" +
+                    " concurrency exception:", ((string)(null)), table14, "When ");
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "FindByName"});

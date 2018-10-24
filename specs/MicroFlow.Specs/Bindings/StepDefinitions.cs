@@ -94,33 +94,7 @@ namespace MicroFlow.Specs.Bindings
 		{
 			var items = table.CreateSet<BudgetItemTypeTestData>();
 
-			var stallEntities = new List<BudgetItemType>();
-
-			// Successful updates
-			using (var scope = CreateScope())
-			{
-				var services = scope.ServiceProvider.GetService<IBudgetItemTypeServices>();
-
-				foreach (var item in items)
-				{
-					var entity = await services.FindByNameAsync(item.FindByName);
-
-					entity.Should().NotBeNull();
-
-					// Serialize and deserialize to easily clone object
-					var stallEntity = JsonConvert.DeserializeObject<BudgetItemType>(JsonConvert.SerializeObject(entity));
-
-					stallEntity.CopyValuesFrom(item);
-
-					stallEntities.Add(stallEntity);
-
-					entity.Notes = "Successful update";
-
-					var result = await services.UpdateAsync(entity);
-
-					result.IsValid.Should().BeTrue();
-				}
-			}
+			var stallEntities = await DoGenericUpdatesAsync(items);
 
 			// Failling delete
 			using (var scope = CreateScope())
@@ -134,7 +108,7 @@ namespace MicroFlow.Specs.Bindings
 					entity.Should().NotBeNull();
 
 					entity.CopyValuesFrom(item);
-					entity.ConcurrencyToken = item.ConcurrencyToken;
+					entity.RowVersion = item.RowVersion;
 
 					Func<Task> action = async () => await services.RemoveAsync(entity);
 
@@ -143,38 +117,12 @@ namespace MicroFlow.Specs.Bindings
 			}
 		}
 
-		[When(@"I try to simultaneously update these budget item types I should get a concurrency exception:")]
-		public async Task WhenITryToSimultaneouslyUpdateTheseBudgetItemTypesIShouldGetAConcurrencyException(Table table)
+		[When(@"I try to update these budget item types after they've been updated I should get a concurrency exception:")]
+		public async Task WhenITryToUpdateTheseBudgetItemTypesAfterTheyVeBeenUpdatedIShouldGetAConcurrencyException(Table table)
 		{
 			var items = table.CreateSet<BudgetItemTypeTestData>();
 
-			var stallEntities = new List<BudgetItemType>();
-
-			// Successful updates
-			using (var scope = CreateScope())
-			{
-				var services = scope.ServiceProvider.GetService<IBudgetItemTypeServices>();
-
-				foreach (var item in items)
-				{
-					var entity = await services.FindByNameAsync(item.FindByName);
-
-					entity.Should().NotBeNull();
-
-					// Serialize and deserialize to easily clone object
-					var stallEntity = JsonConvert.DeserializeObject<BudgetItemType>(JsonConvert.SerializeObject(entity));
-
-					stallEntity.CopyValuesFrom(item);
-
-					stallEntities.Add(stallEntity);
-
-					entity.Notes = "Successful update";
-
-					var result = await services.UpdateAsync(entity);
-
-					result.IsValid.Should().BeTrue();
-				}
-			}
+			var stallEntities = await DoGenericUpdatesAsync(items);
 
 			// Failling updates
 			using (var scope = CreateScope())
@@ -188,7 +136,7 @@ namespace MicroFlow.Specs.Bindings
 					entity.Should().NotBeNull();
 
 					entity.CopyValuesFrom(item);
-					entity.ConcurrencyToken = item.ConcurrencyToken;
+					entity.RowVersion = item.RowVersion;
 
 					Func<Task> action = async () => await services.UpdateAsync(entity);
 
@@ -246,6 +194,39 @@ namespace MicroFlow.Specs.Bindings
 		private IServiceScope CreateScope()
 		{
 			return _scenarioContext.Get<IServiceScope>(Hooks.ScopeKey)?.ServiceProvider.CreateScope();
+		}
+
+		private async Task<List<BudgetItemType>> DoGenericUpdatesAsync(IEnumerable<BudgetItemTypeTestData> items)
+		{
+			// Successful updates
+			var stallEntities = new List<BudgetItemType>();
+
+			using (var scope = CreateScope())
+			{
+				var services = scope.ServiceProvider.GetService<IBudgetItemTypeServices>();
+
+				foreach (var item in items)
+				{
+					var entity = await services.FindByNameAsync(item.FindByName);
+
+					entity.Should().NotBeNull();
+
+					// Serialize and deserialize to easily clone object
+					var stallEntity = JsonConvert.DeserializeObject<BudgetItemType>(JsonConvert.SerializeObject(entity));
+
+					stallEntity.CopyValuesFrom(item);
+
+					stallEntities.Add(stallEntity);
+
+					entity.Notes = "Successful update";
+
+					var result = await services.UpdateAsync(entity);
+
+					result.IsValid.Should().BeTrue();
+				}
+			}
+
+			return stallEntities;
 		}
 
 		private T GetService<T>() where T : class

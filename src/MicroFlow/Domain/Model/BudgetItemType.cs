@@ -8,7 +8,7 @@ namespace MicroFlow.Domain.Model
 		//[Column(TypeName = "nvarchar(10)")]
 		public BudgetClass BudgetClass { get; set; }
 
-		public byte[] ConcurrencyToken { get; set; }
+		public byte[] RowVersion { get; set; }
 
 		public int Id { get; set; }
 
