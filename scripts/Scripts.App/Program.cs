@@ -1,12 +1,12 @@
-﻿using MicroFlow.Infrastructure.Data.Configuration;
+﻿using MicroFlow.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Scripts.App
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			Console.WriteLine("Host for EF scripts");
 

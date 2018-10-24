@@ -1,4 +1,5 @@
-﻿using MicroFlow.Infrastructure.Data.Configuration;
+﻿using MicroFlow.Infrastructure.Data;
+using MicroFlow.Infrastructure.Data.Configuration;
 using MicroFlow.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
