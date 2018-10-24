@@ -31,7 +31,4 @@ If you find some problem or have any suggestion, please create an issue on this 
 
 If this helps you somehow, I'd appreciate you to spread the word and let me know on [Twitter](https://twitter.com/mvelosop).
 
-<div style="float: left; padding-top: 2px;">
-  <a href="https://twitter.com/mvelosop?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @mvelosop</a>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
+[**Follow @mvelosop**](https://twitter.com/intent/user?screen_name=mvelosop)
