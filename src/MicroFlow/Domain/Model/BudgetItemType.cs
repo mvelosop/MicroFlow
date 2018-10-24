@@ -5,7 +5,7 @@ namespace MicroFlow.Domain.Model
 {
 	public class BudgetItemType
 	{
-		[Column(TypeName = "nvarchar(10)")]
+		//[Column(TypeName = "nvarchar(10)")]
 		public BudgetClass BudgetClass { get; set; }
 
 		public byte[] ConcurrencyToken { get; set; }

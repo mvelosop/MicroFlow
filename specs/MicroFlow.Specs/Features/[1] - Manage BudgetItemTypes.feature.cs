@@ -370,6 +370,58 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="[1.6] - Catch concurrency conflicts")]
+        [Xunit.TraitAttribute("FeatureTitle", "[1] - Manage BudgetItemTypes")]
+        [Xunit.TraitAttribute("Description", "[1.6] - Catch concurrency conflicts")]
+        public virtual void _1_6_CatchConcurrencyConflicts()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[1.6] - Catch concurrency conflicts", null, ((string[])(null)));
+#line 87
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Order",
+                        "Name",
+                        "BudgetClass"});
+            table13.AddRow(new string[] {
+                        "1",
+                        "Income type",
+                        "Income"});
+            table13.AddRow(new string[] {
+                        "2",
+                        "Expense type",
+                        "Expense"});
+#line 88
+ testRunner.Given("I have the following budget item types:", ((string)(null)), table13, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FindByName",
+                        "Order",
+                        "Name",
+                        "BudgetClass",
+                        "Notes"});
+            table14.AddRow(new string[] {
+                        "Income type",
+                        "1",
+                        "Income type",
+                        "Income",
+                        "Failling update"});
+#line 93
+ testRunner.When("I try to simultaneously update these budget item types I should get a concurrency" +
+                    " exception:", ((string)(null)), table14, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "FindByName"});
+            table15.AddRow(new string[] {
+                        "Expense type"});
+#line 97
+ testRunner.When("I try to delete these budget item types after they\'ve been updated I should get a" +
+                    " concurrency exception:", ((string)(null)), table15, "When ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.4.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

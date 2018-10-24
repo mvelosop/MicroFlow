@@ -82,3 +82,18 @@ Scenario: [1.5] - Validate budget item types on update
 		| FindByName  | Order | Name         | BudgetClass | ValidationErrors                  |
 		| Debt type   | 3     |              | Debt        | BudgetItemTypeErrors-NameRequired |
 		| Income type | 1     | Expense type | Income      | BudgetItemTypeErrors-NameExists   |
+
+
+Scenario: [1.6] - Catch concurrency conflicts
+	Given I have the following budget item types:
+		| Order | Name            | BudgetClass |
+		| 1     | Income type     | Income      |
+		| 2     | Expense type    | Expense     |
+
+	When I try to simultaneously update these budget item types I should get a concurrency exception:
+		| FindByName  | Order | Name        | BudgetClass | Notes           |
+		| Income type | 1     | Income type | Income      | Failling update |
+
+	When I try to delete these budget item types after they've been updated I should get a concurrency exception:
+		| FindByName   |
+		| Expense type |

@@ -50,13 +50,17 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\BudgetItemTypeTestData.cs" />
+    <Compile Include="TestHelpers\UpdateExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions">
       <Version>5.4.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
-      <Version>2.1.3</Version>
+      <Version>2.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="SpecFlow">
       <Version>2.4.0</Version>

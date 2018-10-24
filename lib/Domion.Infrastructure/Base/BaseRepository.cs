@@ -1,5 +1,6 @@
 ﻿using Domion.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -71,6 +72,11 @@ namespace Domion.Infrastructure.Base
 		public virtual void UpdateRange(params TEntity[] entities)
 		{
 			_dbContext.UpdateRange(entities);
+		}
+
+		protected EntityEntry GetEntry(TEntity entity)
+		{
+			return _dbContext.Entry(entity);
 		}
 	}
 }

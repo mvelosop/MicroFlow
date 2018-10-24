@@ -23,10 +23,8 @@ namespace MicroFlow.Infrastructure.Data.Configuration
 			builder.Property(t => t.Notes)
 				.HasMaxLength(1000);
 
-			var budGetClassConverter = new EnumToStringConverter<BudgetClass>();
-
 			builder.Property(t => t.BudgetClass)
-				.HasConversion<string>(budGetClassConverter)
+				.HasConversion<string>(new EnumToStringConverter<BudgetClass>())
 				.HasMaxLength(10);
 		}
 	}
