@@ -39,9 +39,9 @@ namespace MicroFlow.Application.Services
 			return SuccessfulOperation(entity);
 		}
 
-		public Task<BudgetItemType> FindByIdAsync(int id)
+		public async Task<BudgetItemType> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await _repository.FindByIdAsync(id);
 		}
 
 		public async Task<BudgetItemType> FindByNameAsync(string name)

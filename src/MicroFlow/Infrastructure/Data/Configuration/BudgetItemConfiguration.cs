@@ -15,7 +15,7 @@ namespace MicroFlow.Infrastructure.Data.Configuration
 
 			builder.HasKey(t => t.Id);
 
-			builder.Property(t => t.ConcurrencyToken)
+			builder.Property(t => t.RowVersion)
 				.IsRowVersion();
 
 			builder.HasOne(t => t.Type)

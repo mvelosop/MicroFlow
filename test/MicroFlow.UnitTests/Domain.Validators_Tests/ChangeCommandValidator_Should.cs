@@ -27,7 +27,7 @@ namespace MicroFlow.UnitTests.Domain.Validators_Tests
 		}
 
 		[Fact]
-		public void ValidateConcurrencyToken()
+		public void ValidateRowVersion()
 		{
 			// Arrange -----------------
 			var validator = new ChangeCommandValidator<int>();
@@ -35,13 +35,13 @@ namespace MicroFlow.UnitTests.Domain.Validators_Tests
 			// Act ---------------------
 
 			// Assert ------------------
-			validator.ShouldNotHaveValidationErrorFor(c => c.ConcurrencyToken, new TestChangeCommand { Id = 1, ConcurrencyToken = new byte[] { 1, 2 } });
+			validator.ShouldNotHaveValidationErrorFor(c => c.RowVersion, new TestChangeCommand { Id = 1, RowVersion = new byte[] { 1, 2 } });
 
-			validator.ShouldHaveValidationErrorFor(c => c.ConcurrencyToken, new TestChangeCommand { Id = 1 })
-				.WithErrorMessage("'Concurrency Token' should not be empty.");
+			validator.ShouldHaveValidationErrorFor(c => c.RowVersion, new TestChangeCommand { Id = 1 })
+				.WithErrorMessage("'Row Version' should not be empty.");
 
-			validator.ShouldHaveValidationErrorFor(c => c.ConcurrencyToken, new TestChangeCommand { Id = 1, ConcurrencyToken = new byte[] { } })
-				.WithErrorMessage("'Concurrency Token' should not be empty.");
+			validator.ShouldHaveValidationErrorFor(c => c.RowVersion, new TestChangeCommand { Id = 1, RowVersion = new byte[] { } })
+				.WithErrorMessage("'Row Version' should not be empty.");
 
 		}
 

@@ -6,7 +6,7 @@ namespace MicroFlow.Domain.Model
 	{
 		public decimal Amount { get; set; }
 
-		public byte[] ConcurrencyToken { get; set; }
+		public byte[] RowVersion { get; set; }
 
 		public int Id { get; set; }
 

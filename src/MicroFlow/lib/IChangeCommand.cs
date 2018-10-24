@@ -2,7 +2,7 @@
 {
 	public interface IChangeCommand<T>
 	{
-		byte[] ConcurrencyToken { get; }
+		byte[] RowVersion { get; }
 
 		T Id { get; }
 	}
